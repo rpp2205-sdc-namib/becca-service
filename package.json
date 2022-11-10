@@ -1,0 +1,14 @@
+{
+  "name": "rpp2205-becca-service",
+  "version": "1.0.0",
+  "description": "Product overview SDC",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Becca Kekerchen",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.3.1"
+  }
+}
