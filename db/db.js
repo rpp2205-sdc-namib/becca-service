@@ -7,15 +7,4 @@ const pool = new Pool({
   port: 5432
 })
 
-const getProducts = (request, response) => {
-  pool.query('select * from styles where product_id=1', (err, results) => {
-    if (err) {
-      throw err;
-    }
-    response.status(200).json(results.rows)
-  })
-}
-
-module.exports = {
-  getProducts
-}
+module.exports = pool;

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "start": "node index.js",
-    "server-dev": "npx nodemon --watch server index.js"
+    "server-dev": "npx nodemon --watch server server/index.js"
   },
   "author": "Becca Kekerchen",
   "license": "ISC",
