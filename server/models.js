@@ -1,11 +1,16 @@
 const pool = require('../db/db.js');
 
 const readProducts = (page, count) => {
-  var query = `SELECT * FROM product LIMIT ${count} OFFSET ${(page - 1) * count}`;
+  var query = `SELECT * FROM product WHERE id > ${(page - 1) * count} ORDER BY id ASC FETCH FIRST ${count} ROWS ONLY`;
+             // `SELECT * FROM product where id IN (SELECT id FROM product ORDER BY id ASC LIMIT 5 OFFSET (100100 - 1) * 5);`
+             //`SELECT * FROM product WHERE id > ${(page - 1) * count} ORDER BY id ASC FETCH FIRST 5 ROWS ONLY`
+             //SELECT * FROM product where id IN (SELECT id FROM product ORDER BY id ASC LIMIT ${count} OFFSET ${(page - 1) * count})
 
   return pool
   .query(query)
   .then((results) => {
+    console.log(results.rows)
+    console.log(page, count)
     return results.rows
   })
   .catch(err => console.log(err, page, count))
@@ -22,7 +27,7 @@ const readOneProduct = (product_id) => {
   return pool
   .query(query)
   .then((results) => {
-    return results.rows
+    return results.rows[0]
   })
   .catch(err => console.log(err))
 }
@@ -36,7 +41,7 @@ const readStyles = (product_id) => {
           'sale_price', s.sale_price,
           'default?', s.default,
           'photos', (
-                    SELECT array_to_json(array_agg(row_to_json(pho)))
+                    SELECT array_to_json(array_agg(pho))
                     FROM (
                       SELECT ph.thumbnail_url, ph.url
                       FROM photos ph

@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const port = 3000;
+const port = 3001;
 const db = require('../db/db.js');
 const { getProducts, getOneProduct, getStyles, getRelated } = require('./controller.js');
 
